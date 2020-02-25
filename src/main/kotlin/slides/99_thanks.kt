@@ -69,7 +69,7 @@ private val ThankYou by functionalComponent<SlideContentProps> { props ->
     }
 }
 private val OneMoreThing by functionalComponent<SlideContentProps> { props ->
-    slideTitle("Win an IntelliJ IDEA licence!")
+    slideTitle("Win a JetBrains licence!")
 
     kotlinSourceCode("""
         fun main() {
