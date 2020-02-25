@@ -306,7 +306,7 @@ private val AndroidUsage1 by functionalComponent<SlideContentProps> { props ->
     kotlinSourceCode("""
         class App : Application()«aware-ext«, DIAware» {«aware-override«
             override val di»«injector« = CommonInjector.diContainer»«lazy« by DI.lazy {«extend«
-                extend(diContainer)»«import«
+                extend(CommonInjector.sdiContainer)»«import«
                 import(androidXModule(this@DemoApplication))
             »}
         »}

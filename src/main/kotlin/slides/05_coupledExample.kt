@@ -65,27 +65,20 @@ private val Slide3 by functionalComponent<SlideContentProps> { props ->
     kotlinSourceCode("""
     fun main() {
         val logger = ConsoleLogger()
-        val heater = ElectricHeater(${compileError(2)})
-        val pump = Thermosiphon(${compileError(2)})
-        val coffee = { Coffee(${compileError(2)})}
+        val heater = ElectricHeater(${compileError(1)})
+        val pump = Thermosiphon(${compileError(1)})
+        val coffee = { Coffee(${compileError(1)}) }
         
         val coffeeMaker = 
-                CoffeeMaker(«out«ConsoleLogger()»«in«logger,heater»,
-                            «out«ElectricHeater(${compileError(1)}),»«in«pump, coffee») 
-                            «out«Thermosiphon(${compileError(1)}),»
-                            «out«{ Coffee(${compileError(1)}) })»
+                CoffeeMaker(«in«logger,heater»,
+                            «in«pump, coffee») 
                             
         coffeeMaker.brew()
     }
     """.trimIndent())
     {
+        +"c-in" { orangeHighlight(props.state, 0) }
         +"c-err1" { orangeHighlight(props.state, 0) }
-        +"c-out" { lineEffectTo(props.state, 1) }
-        +"c-in" {
-            lineEffectFrom(props.state, 1)
-            color = Palette.orange.color
-        }
-        +"c-err2" { orangeHighlight(props.state, 1) }
     }
 }
 private val Slide4 by functionalComponent<SlideContentProps> { props ->
@@ -107,7 +100,7 @@ private val Slide4 by functionalComponent<SlideContentProps> { props ->
         +"c-logger" {
             color = if (props.state == 0) Palette.orange.color else Color.black
         }
-        +"c-brew" { lineEffectFrom(props.state, 1) }
+        +"c-brew" { lineEffectFrom(props.state, 0) }
     }
 }
 private val Slide5 by functionalComponent<SlideContentProps> { props ->
@@ -130,8 +123,8 @@ private val Slide5 by functionalComponent<SlideContentProps> { props ->
             «njct«@Inject »private val heater: Heater
     ) : Pump { ... }
     """.trimIndent()) {
-        + "c-bind" { lineEffectFrom(props.state, 1) }
-        + "c-njct" { lineEffectFrom(props.state, 2) }
+        +"c-bind" { lineEffectFrom(props.state, 1) }
+        +"c-njct" { lineEffectFrom(props.state, 2) }
     }
 }
 private val Slide6 by functionalComponent<SlideContentProps> { props ->
@@ -154,8 +147,8 @@ fun PresentationBuilder.coupledCode() {
     slide { slideTitle("Coupled architecture") }
     slide(fastTransition(3)) { child(Slide1, it) }
     slide(fastTransition(2)) { child(Slide2, it) }
-    slide(fastTransition(2)) { child(Slide3, it) }
-    slide(fastTransition(2)) { child(Slide4, it) }
+    slide(fastTransition(1)) { child(Slide3, it) }
+    slide(fastTransition(1)) { child(Slide4, it) }
     slide(SlideInfos(3)) { child(Slide5, it) }
     slide { child(Slide6, it) }
 }

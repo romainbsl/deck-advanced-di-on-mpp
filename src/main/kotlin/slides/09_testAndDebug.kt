@@ -51,7 +51,7 @@ private val TestLogger by functionalComponent<SlideContentProps> { props ->
         bind() from singleton { 
           CoffeeMaker(instance(), instance(), instance(), provider()) 
         }
-        «exist«bind() from singleton { ConsoleLogger(instance()) }»
+        «exist«bind<CommonLogger>() with singleton { ConsoleLogger(instance()) }»
     }»
     """.trimIndent()) {
                 +"c-di" { blockEffectFrom(props.state, 1) }
@@ -87,8 +87,8 @@ private val ContainerTest by functionalComponent<SlideContentProps> { props ->
                 class CoffeeMakerTest«di-aware-line« : DIAware» {«di-aware-block«
                     override val di: DI = underTestDI
                     »«under-test«private val underTestDI: DI = DI {
-                        importAll(modularizedContainer)
-                        «exist«bind<TestLogger>() from singleton { TestLogger() }»
+                        extend(modularizedContainer)
+                        «exist«bind<CommonLogger>() with singleton { TestLogger() }»
                     }
             
                     »@Test
@@ -120,8 +120,8 @@ private val OverridingBindings by functionalComponent<SlideContentProps> { props
     class CoffeeMakerTest : DIAware {«config-out«
         override val di: DI = underTestDI
         private val underTestDI: DI = DI {
-            importAll(modularizedContainer)
-            bind(«overriding«override = true») from singleton { 
+            extend(modularizedContainer)
+            bind<CommonLogger>(«overriding«override = true») with singleton { 
                 TestLogger() 
             }
         }
