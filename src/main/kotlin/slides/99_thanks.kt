@@ -51,9 +51,20 @@ private val ThankYou by functionalComponent<SlideContentProps> { props ->
                 color = Color("#007bfa")
                 textDecoration = TextDecoration.none
                 display = Display.block
-                marginBottom = 0.75.em
+                marginBottom = 1.75.em
             }
             +"@KodeinKoders"
+        }
+        styledA(href = "https://romainbsl.github.io/deck-advanced-di-on-mpp/", target = "_blank") {
+            css {
+                fontSize = 0.6.em
+                fontWeight = FontWeight.w400
+                color = Color.white
+                textDecoration = TextDecoration.none
+                display = Display.block
+                marginBottom = 0.75.em
+            }
+            +"https://romainbsl.github.io/deck-advanced-di-on-mpp/"
         }
     }
 }
