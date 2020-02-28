@@ -49,7 +49,7 @@ private val SimpleDISlide2 by functionalComponent<SlideContentProps> { props ->
         bind() from «provider«provider» { Coffee(${compileError(1)}«instance«instance()») }
         
         bind() from singleton { 
-          CoffeeMaker(${compileError(1)}«instance«instance()», ${compileError(1)}«instance«instance()», ${compileError(1)}«instance«instance()», ${compileError(1)}«instance««provider«provider()»») 
+          CoffeeMaker(${compileError(1)}«instance«instance()», ${compileError(1)}«instance«instance()», ${compileError(1)}«instance«instance()», ${compileError(1)}«instance«instance()») 
         }
     }
     """.trimIndent()) {
@@ -58,10 +58,6 @@ private val SimpleDISlide2 by functionalComponent<SlideContentProps> { props ->
         +"c-instance" {
             lineEffectFrom(currentState, 1)
             color = if (currentState == 1) Palette.orange.color else Color.black
-        }
-        +"c-provider" {
-            if (currentState > 1)
-                color = Palette.orange.color
         }
     }
 }
@@ -101,7 +97,7 @@ private val DIModulesSlide3 by functionalComponent<SlideContentProps> { props ->
         bind() from singleton { ElectricHeater(instance()) }
         »bind() from provider { Coffee(instance()) }
         bind() from singleton { 
-          CoffeeMaker(instance(), instance(), instance(), provider()) 
+          CoffeeMaker(instance(), instance(), instance(), instance()) 
         }
         bind() from singleton { ConsoleLogger(instance()) }
     }
@@ -123,7 +119,7 @@ private val DIModulesSlide4 by functionalComponent<SlideContentProps> { props ->
         »
         bind() from provider { Coffee(instance()) }
         bind() from singleton { 
-          CoffeeMaker(instance(), instance(), instance(), provider()) 
+          CoffeeMaker(instance(), instance(), instance(), instance()) 
         }
         bind() from singleton { ConsoleLogger(instance()) }
     }
@@ -146,7 +142,7 @@ fun PresentationBuilder.commonMain() {
     slide(SlideInfos(7, outTransitions = Fade)) {
         child(SimpleDISlide1, it)
     }
-    slide(SlideInfos(3, inTransitions = Fade, inTransitionDuration = 0)) {
+    slide(SlideInfos(2, inTransitions = Fade, inTransitionDuration = 0)) {
         child(SimpleDISlide2, it)
     }
     slide { slideTitle("Modularize your app") }

@@ -24,13 +24,13 @@ private val WhatNext by functionalComponent<SlideContentProps> { props ->
             // Binding (Ration to Coffee)
             bind<Ration>() with singleton { Coffee(instance()) }
             // Direct Binding (Coffee)        
-            bind>() from singleton { Coffee(instance()) }
+            bind() from singleton { Coffee(instance()) }
             // Next ?
             bindSingleton<Ration> { Coffee(instance()) }
             bindSingleton { Coffee(instance()) }
         """.trimIndent())
         bulletCode(props.state, 2, "Powered API", "kotlin", """
-            bindSingleton<Coffee>() // With compiler plugins
+            bindSingleton<Ration, Coffee>() // With compiler plugins
         """.trimIndent())
         bulletPoint(props.state, 3, "Swift support")
         bulletPoint(props.state, 4, "Coroutine support")

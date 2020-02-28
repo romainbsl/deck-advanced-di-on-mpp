@@ -8,15 +8,13 @@ import styled.*
 import ws.kpres.PresentationBuilder
 import ws.kpres.SlideContentProps
 import ws.kpres.SlideInfos
-import ws.utils.blockEffectFrom
-import ws.utils.getValue
-import ws.utils.kotlinSourceCode
-import ws.utils.slideTitle
+import ws.utils.*
 
 fun PresentationBuilder.thanks() {
     slide { child(ThankYou, it) }
     slide { slideTitle("One more thing!") }
     slide(SlideInfos(2)) { child(OneMoreThing, it) }
+    slide(SlideInfos(2)) { child(OneMoreThing2, it) }
 }
 
 private val ThankYou by functionalComponent<SlideContentProps> { props ->
@@ -98,6 +96,40 @@ private val OneMoreThing by functionalComponent<SlideContentProps> { props ->
                 color = Color.darkRed
                 fontWeight = FontWeight.w500
             }
+        }
+    }
+}
+private val OneMoreThing2 by functionalComponent<SlideContentProps> { props ->
+    slideTitle("Win a JetBrains licence (bis)!")
+
+    kotlinSourceCode("""        
+    class MyDelegate(var value: String) 
+                : ReadOnlyProperty<Any?, String> {
+        override fun getValue(thisRef: Any?, property: KProperty< * >)
+                        = value
+    }
+    var delegate = MyDelegate("Salomon")
+    val name by delegate «correct-msg«// Reference capture !»
+    println(name)
+    delegate.value = "Romain"
+    println(name)
+    delegate = MyDelegate("Aurelien")
+    println(name)
+    
+    // What should be printed?
+    a: Salomon, Salomon, Salomon
+    «correct«b: Salomon, Romain, Romain»
+    c: Salomon, Romain, Aurelien
+    d: Ne compile pas
+        """.trimIndent()) {
+        +"c-correct" {
+            if (props.state == 1) {
+                color = Color.green
+                fontWeight = FontWeight.w500
+            }
+        }
+        +"c-correct-msg" {
+            lineEffectFrom(props.state, 1)
         }
     }
 }
